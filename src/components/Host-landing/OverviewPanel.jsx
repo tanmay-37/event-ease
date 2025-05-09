@@ -66,16 +66,46 @@ const OverviewPanel = () => {
   }, [user]);
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <h2 className="text-xl font-bold mb-3">Overview</h2>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 bg-indigo-100 rounded-lg">
-          <h3 className="text-lg font-semibold">Total Events Created</h3>
-          <p className="text-2xl font-bold">{stats.totalEvents}</p>
+    <div className="relative">
+      <h2 className="text-2xl font-bold text-[#F1F5F9] mb-6 relative inline-block">
+        Overview
+        <div className="absolute -bottom-2 left-0 h-1 w-24 
+          bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] rounded-full"></div>
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Total Events Card */}
+        <div className="group relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] 
+            rounded-xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
+          <div className="relative p-6 bg-[#0F172A]/50 backdrop-blur-sm rounded-xl 
+            border border-[#38BDF8]/20 hover:border-[#38BDF8]/40 
+            transition-all duration-300">
+            <h3 className="text-[#F1F5F9]/80 text-lg font-semibold mb-2">
+              Total Events Created
+            </h3>
+            <p className="text-4xl font-bold bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] 
+              bg-clip-text text-transparent">
+              {stats.totalEvents}
+            </p>
+          </div>
         </div>
-        <div className="p-4 bg-green-100 rounded-lg">
-          <h3 className="text-lg font-semibold">Total Registrations</h3>
-          <p className="text-2xl font-bold">{stats.totalRegistrations}</p>
+
+        {/* Total Registrations Card */}
+        <div className="group relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] 
+            rounded-xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
+          <div className="relative p-6 bg-[#0F172A]/50 backdrop-blur-sm rounded-xl 
+            border border-[#38BDF8]/20 hover:border-[#38BDF8]/40 
+            transition-all duration-300">
+            <h3 className="text-[#F1F5F9]/80 text-lg font-semibold mb-2">
+              Total Registrations
+            </h3>
+            <p className="text-4xl font-bold bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] 
+              bg-clip-text text-transparent">
+              {stats.totalRegistrations}
+            </p>
+          </div>
         </div>
       </div>
     </div>

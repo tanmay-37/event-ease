@@ -77,44 +77,57 @@ const EventManagement = () => {
   };
 
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <div className="flex justify-between items-center mb-3">
-        <h2 className="text-xl font-bold">Events Hosted</h2>
+    <div className="bg-[#1E293B]/80 backdrop-blur-md p-6 rounded-xl border border-[#38BDF8]/20 
+      shadow-[0_0_20px_rgba(56,189,248,0.2)]">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-[#F1F5F9]">Events Hosted</h2>
         <button 
           onClick={() => navigate("/my-created-events")} 
-          className="text-[#A084E8] hover:text-[#8C72D4] font-semibold"
+          className="text-[#38BDF8] hover:text-[#F59E0B] font-semibold 
+            transition-colors duration-300 flex items-center gap-1 group"
         >
-          View All →
+          View All 
+          <span className="transform translate-x-0 group-hover:translate-x-1 transition-transform duration-300">
+            →
+          </span>
         </button>
       </div>
 
       {loading ? (
-        <p className="text-gray-500">Loading...</p>
+        <p className="text-[#F1F5F9]/60">Loading...</p>
       ) : currentEvents.length === 0 && completedEvents.length === 0 ? (
-        <p className="text-gray-500">No events created yet</p>
+        <p className="text-[#F1F5F9]/60">No events created yet</p>
       ) : (
         <div className="space-y-4">
           {/* Current Events */}
           {currentEvents.slice(0, 3).map(event => (
             <div key={event.id} 
-              className="p-4 bg-indigo-100 rounded-lg flex justify-between items-center"
+              className="p-4 bg-[#0F172A]/50 backdrop-blur-sm rounded-xl border border-[#38BDF8]/20
+                hover:border-[#38BDF8]/40 transition-all duration-300
+                shadow-[0_0_20px_rgba(56,189,248,0.1)]
+                hover:shadow-[0_0_25px_rgba(56,189,248,0.2)]"
             >
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-[#4A3F74]">{event.title}</h3>
-                <span className="text-sm font-medium text-[#6B7280]">
-                  {event.registrationCount || 0} registrations
-                </span>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setEditingEvent(event)}
-                  className="text-[#A084E8] hover:text-[#8C72D4] font-medium px-2 py-1 rounded"
-                >
-                  Edit
-                </button>
-                <span className="text-green-700 bg-green-100 px-3 py-1 rounded-lg text-sm font-medium">
-                  Active
-                </span>
+              <div className="flex justify-between items-center">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-[#F1F5F9]">{event.title}</h3>
+                  <span className="text-sm font-medium text-[#F1F5F9]/60">
+                    {event.registrationCount || 0} registrations
+                  </span>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setEditingEvent(event)}
+                    className="text-[#38BDF8] hover:text-[#F59E0B] font-medium px-3 py-1.5 
+                      rounded-lg border border-[#38BDF8]/20 hover:border-[#38BDF8]/40
+                      transition-all duration-300"
+                  >
+                    Edit
+                  </button>
+                  <span className="text-[#4ADE80] bg-[#4ADE80]/10 px-3 py-1.5 
+                    rounded-lg text-sm font-medium border border-[#4ADE80]/20">
+                    Active
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -122,17 +135,22 @@ const EventManagement = () => {
           {/* Completed Events */}
           {completedEvents.slice(0, 3).map(event => (
             <div key={event.id} 
-              className="p-4 bg-indigo-100 rounded-lg flex justify-between items-center"
+              className="p-4 bg-[#0F172A]/50 backdrop-blur-sm rounded-xl border border-[#38BDF8]/20
+                transition-all duration-300
+                shadow-[0_0_20px_rgba(56,189,248,0.1)]"
             >
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-[#4A3F74]">{event.title}</h3>
-                <span className="text-sm font-medium text-[#6B7280]">
-                  {event.registrationCount || 0} registrations
+              <div className="flex justify-between items-center">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-[#F1F5F9]">{event.title}</h3>
+                  <span className="text-sm font-medium text-[#F1F5F9]/60">
+                    {event.registrationCount || 0} registrations
+                  </span>
+                </div>
+                <span className="text-[#F1F5F9]/60 bg-[#F1F5F9]/5 px-3 py-1.5 
+                  rounded-lg text-sm font-medium border border-[#F1F5F9]/10">
+                  Completed
                 </span>
               </div>
-              <span className="text-gray-700 bg-gray-100 px-3 py-1 rounded-lg text-sm font-medium">
-                Completed
-              </span>
             </div>
           ))}
         </div>

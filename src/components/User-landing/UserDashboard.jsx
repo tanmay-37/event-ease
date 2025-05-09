@@ -81,33 +81,74 @@ const UserDashboard = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen flex flex-col p-4 lg:p-6"
-      style={{
-        backgroundImage: "url('/images/doodad.png')",
-        backgroundSize: "500px",
-        backgroundPosition: "left",
-      }}>
-      
-      {/* Main content */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
-        <OverviewPanel upcomingEvents={upcomingEvents} />
-        <MyRegisteredEvents />
+    <div className="min-h-screen bg-[#0F172A] px-4 lg:px-6 py-8 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#38BDF8] rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-[#F59E0B] rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+        <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-[#EF4444] rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
       </div>
 
-      {/* Action buttons container */}
-      <div className="w-full flex justify-center gap-4 mt-6 relative z-50 pointer-events-auto">
-        <button
-          onClick={() => navigate("/discover")}
-          className="bg-[#A084E8] hover:bg-[#8C72D4] text-white px-6 py-2 rounded-lg font-semibold shadow-md w-full max-w-[300px] sm:w-auto"
-        >
-          Browse New Events
-        </button>
-        <button
-          onClick={() => navigate("/user/recent-events")}
-          className="bg-white/50 hover:bg-white/70 backdrop-blur-sm text-[#4A3F74] px-6 py-2 rounded-lg font-semibold shadow-md w-full max-w-[300px] sm:w-auto border border-[#A084E8]/30"
-        >
-          Recent Events
-        </button>
+      {/* Background Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/doodad.png')",
+          backgroundSize: "500px",
+          backgroundPosition: "left",
+        }}
+      />
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto space-y-6">
+        {/* Welcome Message */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#F1F5F9] mb-2">
+            Welcome Back, {user?.displayName || 'User'}
+          </h1>
+          <p className="text-[#F1F5F9]/60">
+            Manage your events and discover new experiences
+          </p>
+        </div>
+
+        {/* Dashboard Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <OverviewPanel upcomingEvents={upcomingEvents} />
+          <MyRegisteredEvents />
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
+          <button
+            onClick={() => navigate("/discover")}
+            className="group relative inline-flex items-center px-8 py-3 
+              bg-gradient-to-r from-[#38BDF8] to-[#F59E0B]
+              text-[#0F172A] font-semibold rounded-xl
+              shadow-[0_0_20px_rgba(56,189,248,0.3)]
+              hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+              transition-all duration-300 hover:scale-105
+              w-full sm:w-auto max-w-[300px] justify-center
+              overflow-hidden"
+          >
+            <span className="relative z-10">Browse New Events</span>
+            <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent 
+              transition-colors duration-300"></div>
+          </button>
+
+          <button
+            onClick={() => navigate("/user/recent-events")}
+            className="group relative inline-flex items-center px-8 py-3
+              bg-[#1E293B] text-[#F1F5F9] font-semibold rounded-xl
+              border border-[#38BDF8]/20 hover:border-[#38BDF8]/40
+              shadow-[0_0_20px_rgba(56,189,248,0.1)]
+              hover:shadow-[0_0_25px_rgba(56,189,248,0.2)]
+              transition-all duration-300 hover:scale-105
+              w-full sm:w-auto max-w-[300px] justify-center
+              backdrop-blur-sm"
+          >
+            <span className="relative z-10">Recent Events</span>
+          </button>
+        </div>
       </div>
     </div>
   );

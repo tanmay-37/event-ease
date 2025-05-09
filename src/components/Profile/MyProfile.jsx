@@ -69,111 +69,153 @@ const MyProfile = () => {
   };
 
   if (!profile) {
-    return <p className="text-center mt-5">🔄 Loading profile...</p>;
+    return <p className="text-center mt-5 text-[#F1F5F9]">🔄 Loading profile...</p>;
   }
 
-   return (
-    <div className="min-h-screen p-6 bg-[#F5F3FF]"
-      style={{
-        backgroundImage: "url('/images/doodad.png')",
-        backgroundSize: "500px",
-        backgroundPosition: "left",
-      }}>
-      <div className="max-w-2xl mx-auto bg-white/30 backdrop-blur-lg shadow-xl rounded-2xl p-8 mt-10 border border-white/30">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-[#4A3F74]">My Profile</h2>
-          <button 
-            onClick={() => setIsEditing(!isEditing)} 
-            className="px-4 py-2 bg-[#A084E8] hover:bg-[#8C72D4] text-white rounded-lg transition-colors shadow-md"
-          >
-            {isEditing ? "Cancel" : "Edit"}
-          </button>
-        </div>
+  return (
+    <div className="min-h-screen bg-[#0F172A] px-4 py-8 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#38BDF8] rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-[#F59E0B] rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+      </div>
 
-        {/* Profile Fields */}
-        <div className="space-y-6">
-          {/* First Name */}
-          <div className="relative">
-            <p className="text-[#4A3F74] font-semibold mb-1">First Name</p>
-            {isEditing ? (
-              <input 
-                type="text"
-                name="firstName"
-                value={editableProfile.firstName} 
-                onChange={handleChange}
-                className="w-full bg-white/50 border border-[#A084E8]/30 rounded-lg px-4 py-2 focus:outline-none focus:border-[#A084E8] transition-colors"
-              />
-            ) : (
-              <p className="px-4 py-2 bg-white/50 rounded-lg text-[#4A3F74]">
-                {profile.firstName || "N/A"}
-              </p>
-            )}
-          </div>
+      {/* Background Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/doodad.png')",
+          backgroundSize: "500px",
+          backgroundPosition: "left",
+        }}
+      />
 
-          {/* Last Name */}
-          <div className="relative">
-            <p className="text-[#4A3F74] font-semibold mb-1">Last Name</p>
-            {isEditing ? (
-              <input 
-                type="text"
-                name="lastName"
-                value={editableProfile.lastName} 
-                onChange={handleChange}
-                className="w-full bg-white/50 border border-[#A084E8]/30 rounded-lg px-4 py-2 focus:outline-none focus:border-[#A084E8] transition-colors"
-              />
-            ) : (
-              <p className="px-4 py-2 bg-white/50 rounded-lg text-[#4A3F74]">
-                {profile.lastName || "N/A"}
-              </p>
-            )}
-          </div>
-
-          {/* Username/Host Name */}
-          <div className="relative">
-            <p className="text-[#4A3F74] font-semibold mb-1">
-              {userType === "host" ? "Host Name" : "Username"}
-            </p>
-            {isEditing ? (
-              <input 
-                type="text"
-                name="userName"
-                value={editableProfile.userName} 
-                onChange={handleChange}
-                className="w-full bg-white/50 border border-[#A084E8]/30 rounded-lg px-4 py-2 focus:outline-none focus:border-[#A084E8] transition-colors"
-              />
-            ) : (
-              <p className="px-4 py-2 bg-white/50 rounded-lg text-[#4A3F74]">
-                {profile.userName || "N/A"}
-              </p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div className="relative">
-            <p className="text-[#4A3F74] font-semibold mb-1">Email</p>
-            <p className="px-4 py-2 bg-white/50 rounded-lg text-[#4A3F74]">
-              {profile.email}
-            </p>
-          </div>
-
-          {/* Designation */}
-          <div className="relative">
-            <p className="text-[#4A3F74] font-semibold mb-1">Designation</p>
-            <p className="px-4 py-2 bg-white/50 rounded-lg text-[#4A3F74] capitalize">
-              {userType}
-            </p>
-          </div>
-
-          {/* Save Button */}
-          {isEditing && isModified && (
+      <div className="max-w-2xl mx-auto relative z-10">
+        <div className="bg-[#1E293B]/80 backdrop-blur-sm rounded-2xl p-8 
+          border border-[#38BDF8]/20 shadow-[0_0_30px_rgba(56,189,248,0.2)]">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold text-[#F1F5F9] relative inline-block">
+              My Profile
+              <div className="absolute -bottom-2 left-0 h-1 w-24 
+                bg-gradient-to-r from-[#38BDF8] to-[#F59E0B] rounded-full"></div>
+            </h2>
             <button 
-              onClick={handleSave}
-              className="w-full bg-[#A084E8] hover:bg-[#8C72D4] text-white py-3 rounded-lg mt-6 font-semibold shadow-md transition-colors"
+              onClick={() => setIsEditing(!isEditing)} 
+              className="px-4 py-2 bg-[#0F172A]/50 text-[#F1F5F9] rounded-xl
+                border border-[#38BDF8]/20 hover:border-[#38BDF8]/40
+                shadow-[0_0_20px_rgba(56,189,248,0.1)]
+                hover:shadow-[0_0_25px_rgba(56,189,248,0.2)]
+                transition-all duration-300"
             >
-              Save Changes
+              {isEditing ? "Cancel" : "Edit"}
             </button>
-          )}
+          </div>
+
+          {/* Profile Fields */}
+          <div className="space-y-6">
+            {/* Field Template - repeat for each field */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#F1F5F9]/80">First Name</label>
+              {isEditing ? (
+                <input 
+                  type="text"
+                  name="firstName"
+                  value={editableProfile.firstName} 
+                  onChange={handleChange}
+                  className="w-full p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                    text-[#F1F5F9] placeholder-[#F1F5F9]/30 focus:outline-none
+                    focus:border-[#38BDF8]/40 focus:ring-2 focus:ring-[#38BDF8]/20
+                    transition-all"
+                />
+              ) : (
+                <div className="p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                  text-[#F1F5F9]">
+                  {profile.firstName || "N/A"}
+                </div>
+              )}
+            </div>
+
+            {/* Last Name */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#F1F5F9]/80">Last Name</label>
+              {isEditing ? (
+                <input 
+                  type="text"
+                  name="lastName"
+                  value={editableProfile.lastName} 
+                  onChange={handleChange}
+                  className="w-full p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                    text-[#F1F5F9] placeholder-[#F1F5F9]/30 focus:outline-none
+                    focus:border-[#38BDF8]/40 focus:ring-2 focus:ring-[#38BDF8]/20
+                    transition-all"
+                />
+              ) : (
+                <div className="p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                  text-[#F1F5F9]">
+                  {profile.lastName || "N/A"}
+                </div>
+              )}
+            </div>
+
+            {/* Username/Host Name */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#F1F5F9]/80">
+                {userType === "host" ? "Host Name" : "Username"}
+              </label>
+              {isEditing ? (
+                <input 
+                  type="text"
+                  name="userName"
+                  value={editableProfile.userName} 
+                  onChange={handleChange}
+                  className="w-full p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                    text-[#F1F5F9] placeholder-[#F1F5F9]/30 focus:outline-none
+                    focus:border-[#38BDF8]/40 focus:ring-2 focus:ring-[#38BDF8]/20
+                    transition-all"
+                />
+              ) : (
+                <div className="p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                  text-[#F1F5F9]">
+                  {profile.userName || profile.hostName || "N/A"}
+                </div>
+              )}
+            </div>
+
+            {/* Email */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#F1F5F9]/80">Email</label>
+              <div className="p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                text-[#F1F5F9]">
+                {profile.email}
+              </div>
+            </div>
+
+            {/* Designation */}
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#F1F5F9]/80">Designation</label>
+              <div className="p-3 bg-[#0F172A]/50 border border-[#38BDF8]/20 rounded-xl
+                text-[#F1F5F9] capitalize">
+                {userType}
+              </div>
+            </div>
+
+            {/* Save Button */}
+            {isEditing && isModified && (
+              <button 
+                onClick={handleSave}
+                className="w-full bg-gradient-to-r from-[#38BDF8] to-[#F59E0B]
+                  text-[#0F172A] font-semibold py-4 rounded-xl mt-6
+                  shadow-[0_0_20px_rgba(56,189,248,0.3)]
+                  hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+                  transition-all duration-300 relative group overflow-hidden"
+              >
+                <span className="relative z-10">Save Changes</span>
+                <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent 
+                  transition-colors duration-300"></div>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

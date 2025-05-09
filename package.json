@@ -15,7 +15,7 @@
     "browser-image-compression": "^2.0.2",
     "date-fns": "^4.1.0",
     "firebase": "^11.5.0",
-    "framer-motion": "^12.5.0",
+    "framer-motion": "^12.10.5",
     "gsap": "^3.12.7",
     "lucide-react": "^0.479.0",
     "react": "^19.0.0",

@@ -23,10 +23,18 @@ const GoogleSignInButton = () => {
   return (
     <button
       onClick={handleGoogleSignIn}
-      className="w-full flex items-center justify-center bg-white text-black border border-gray-300 rounded-lg py-2 shadow-md hover:shadow-lg transition text-sm md:text-base"
+      className="w-full flex items-center justify-center gap-3
+        bg-[#1E293B]/80 backdrop-blur-md 
+        text-[#F1F5F9] font-medium
+        border border-[#38BDF8]/20 rounded-lg
+        py-3 px-4
+        hover:bg-[#1E293B]/90 
+        focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/50
+        transform transition-all duration-300 hover:scale-[1.02]
+        shadow-lg shadow-[#38BDF8]/10"
     >
-      <FcGoogle className="text-xl md:text-2xl mr-2" />
-      Sign In with Google
+      <FcGoogle className="text-2xl" />
+      <span>Sign in with Google</span>
     </button>
   );
 };

@@ -6,9 +6,17 @@ const CreateEventBtn = () => {
   return (
     <button
       onClick={() => navigate("/create-events")}
-      className="px-6 py-3 bg-[#4A3F74] text-white font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:bg-[#3A2F64] hover:shadow-xl"
+      className="group relative inline-flex items-center px-8 py-3 
+        bg-gradient-to-r from-[#38BDF8] to-[#F59E0B]
+        text-[#0F172A] font-semibold rounded-xl
+        shadow-[0_0_20px_rgba(56,189,248,0.3)]
+        hover:shadow-[0_0_25px_rgba(56,189,248,0.5)]
+        transition-all duration-300 hover:scale-105
+        overflow-hidden"
     >
-      Create New Event
+      <span className="relative z-10">Create New Event</span>
+      <div className="absolute inset-0 bg-white/20 group-hover:bg-transparent 
+        transition-colors duration-300"></div>
     </button>
   );
 };
