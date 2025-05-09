@@ -77,12 +77,12 @@ const EventManagement = () => {
   };
 
   return (
-    <div className="p-6 bg-white/30 backdrop-blur-lg shadow-lg border border-white/30 rounded-2xl h-full">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-[#4A3F74]">Events Hosted</h2>
+    <div className="p-4 bg-white shadow-md rounded-lg">
+      <div className="flex justify-between items-center mb-3">
+        <h2 className="text-xl font-bold">Events Hosted</h2>
         <button 
           onClick={() => navigate("/my-created-events")} 
-          className="text-[#A084E8] hover:text-[#8C72D4] font-medium"
+          className="text-[#A084E8] hover:text-[#8C72D4] font-semibold"
         >
           View All →
         </button>
@@ -97,22 +97,22 @@ const EventManagement = () => {
           {/* Current Events */}
           {currentEvents.slice(0, 3).map(event => (
             <div key={event.id} 
-              className="p-3 bg-white/50 rounded-lg flex justify-between items-center"
+              className="p-4 bg-indigo-100 rounded-lg flex justify-between items-center"
             >
               <div className="flex-1">
-                <h3 className="font-medium text-[#4A3F74]">{event.title}</h3>
-                <span className="text-sm text-purple-600">
+                <h3 className="text-lg font-semibold text-[#4A3F74]">{event.title}</h3>
+                <span className="text-sm font-medium text-[#6B7280]">
                   {event.registrationCount || 0} registrations
                 </span>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => setEditingEvent(event)}
-                  className="text-sm text-[#A084E8] hover:text-[#8C72D4] px-2 py-1 rounded"
+                  className="text-[#A084E8] hover:text-[#8C72D4] font-medium px-2 py-1 rounded"
                 >
                   Edit
                 </button>
-                <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded">
+                <span className="text-green-700 bg-green-100 px-3 py-1 rounded-lg text-sm font-medium">
                   Active
                 </span>
               </div>
@@ -122,15 +122,15 @@ const EventManagement = () => {
           {/* Completed Events */}
           {completedEvents.slice(0, 3).map(event => (
             <div key={event.id} 
-              className="p-3 bg-white/50 rounded-lg flex justify-between items-center"
+              className="p-4 bg-indigo-100 rounded-lg flex justify-between items-center"
             >
               <div className="flex-1">
-                <h3 className="font-medium text-[#4A3F74]">{event.title}</h3>
-                <span className="text-sm text-purple-600">
+                <h3 className="text-lg font-semibold text-[#4A3F74]">{event.title}</h3>
+                <span className="text-sm font-medium text-[#6B7280]">
                   {event.registrationCount || 0} registrations
                 </span>
               </div>
-              <span className="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded">
+              <span className="text-gray-700 bg-gray-100 px-3 py-1 rounded-lg text-sm font-medium">
                 Completed
               </span>
             </div>

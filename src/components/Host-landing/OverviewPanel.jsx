@@ -66,18 +66,16 @@ const OverviewPanel = () => {
   }, [user]);
 
   return (
-    <div className="p-6 bg-white/30 backdrop-blur-lg shadow-lg border border-white/30 rounded-2xl">
-      <h2 className="text-xl font-semibold text-[#4A3F74] mb-4">Dashboard Overview</h2>
-      
+    <div className="p-4 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-bold mb-3">Overview</h2>
       <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 bg-purple-100 rounded-lg">
-          <h3 className="text-lg font-semibold text-[#4A3F74]">Total Events</h3>
-          <p className="text-2xl font-bold text-[#6a5ba7]">{stats.totalEvents}</p>
+        <div className="p-4 bg-indigo-100 rounded-lg">
+          <h3 className="text-lg font-semibold">Total Events Created</h3>
+          <p className="text-2xl font-bold">{stats.totalEvents}</p>
         </div>
-        
-        <div className="p-4 bg-purple-100 rounded-lg">
-          <h3 className="text-lg font-semibold text-[#4A3F74]">Total Registrations</h3>
-          <p className="text-2xl font-bold text-[#6a5ba7]">{stats.totalRegistrations}</p>
+        <div className="p-4 bg-green-100 rounded-lg">
+          <h3 className="text-lg font-semibold">Total Registrations</h3>
+          <p className="text-2xl font-bold">{stats.totalRegistrations}</p>
         </div>
       </div>
     </div>
