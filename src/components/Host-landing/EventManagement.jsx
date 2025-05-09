@@ -77,7 +77,7 @@ const EventManagement = () => {
   };
 
   return (
-    <div className="p-6 bg-white/30 backdrop-blur-lg shadow-lg border border-white/30 rounded-2xl">
+    <div className="p-6 bg-white/30 backdrop-blur-lg shadow-lg border border-white/30 rounded-2xl h-full">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-[#4A3F74]">Events Hosted</h2>
         <button 
