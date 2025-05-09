@@ -35,53 +35,50 @@ const teamMembers = [
 
 const DevelopedByTeam = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#E6D1FA]">
-      <div className="flex-grow flex flex-col items-center justify-center py-12">
-        <h1 className="text-3xl font-bold text-center mb-8 text-[#381A57]">
+    <div className="min-h-screen bg-gradient-to-b from-[#E6D1FA] to-[#F3E8FF] px-4 py-12">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#381A57] relative">
           Developed by EventEase Team
+          <span className="block w-24 h-1 bg-purple-600 mx-auto mt-4"></span>
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {teamMembers.slice(0, 3).map((member, index) => (
             <div
               key={index}
-              className="bg-[#1E1E2E] shadow-md rounded-lg p-6 text-center text-white transition-transform duration-300 hover:scale-105"
+              className="bg-[#1E1E2E] shadow-xl rounded-xl p-8 text-center text-white transform transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-lg border border-purple-900/20"
             >
-              <h2 className="text-xl font-semibold text-[#D8B4FE]">{member.name}</h2>
-              <p className="text-sm text-gray-400">{member.role}</p>
-              <p className="mt-2 text-sm">{member.description}</p>
-              <div className="mt-3 space-x-3">
-                <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  LinkedIn
-                </a>
-                <a href={member.socials.github} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  GitHub
-                </a>
-                <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  Twitter
-                </a>
+              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center text-2xl font-bold">
+                {member.name.charAt(0)}
+              </div>
+              <h2 className="text-2xl font-semibold text-[#D8B4FE] mb-2">{member.name}</h2>
+              <p className="text-sm font-medium text-purple-300 mb-3">{member.role}</p>
+              <p className="text-sm text-gray-300 mb-6 leading-relaxed">{member.description}</p>
+              <div className="flex justify-center space-x-4">
+                <SocialLink href={member.socials.linkedin} label="LinkedIn" />
+                <SocialLink href={member.socials.github} label="GitHub" />
+                <SocialLink href={member.socials.twitter} label="Twitter" />
               </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-center gap-6 mt-6">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {teamMembers.slice(3, 5).map((member, index) => (
             <div
               key={index}
-              className="bg-[#1E1E2E] shadow-md rounded-lg p-6 text-center text-white w-[320px] transition-transform duration-300 hover:scale-105"
+              className="bg-[#1E1E2E] shadow-xl rounded-xl p-8 text-center text-white transform transition-all duration-300 hover:scale-105 hover:shadow-2xl backdrop-blur-lg border border-purple-900/20"
             >
-              <h2 className="text-xl font-semibold text-[#D8B4FE]">{member.name}</h2>
-              <p className="text-sm text-gray-400">{member.role}</p>
-              <p className="mt-2 text-sm">{member.description}</p>
-              <div className="mt-3 space-x-3">
-                <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  LinkedIn
-                </a>
-                <a href={member.socials.github} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  GitHub
-                </a>
-                <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer" className="text-[#A56EF5] hover:underline">
-                  Twitter
-                </a>
+              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center text-2xl font-bold">
+                {member.name.charAt(0)}
+              </div>
+              <h2 className="text-2xl font-semibold text-[#D8B4FE] mb-2">{member.name}</h2>
+              <p className="text-sm font-medium text-purple-300 mb-3">{member.role}</p>
+              <p className="text-sm text-gray-300 mb-6 leading-relaxed">{member.description}</p>
+              <div className="flex justify-center space-x-4">
+                <SocialLink href={member.socials.linkedin} label="LinkedIn" />
+                <SocialLink href={member.socials.github} label="GitHub" />
+                <SocialLink href={member.socials.twitter} label="Twitter" />
               </div>
             </div>
           ))}
@@ -90,5 +87,16 @@ const DevelopedByTeam = () => {
     </div>
   );
 };
+
+const SocialLink = ({ href, label }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-purple-300 hover:text-white hover:bg-purple-800 rounded-lg transition-all duration-200"
+  >
+    {label}
+  </a>
+);
 
 export default DevelopedByTeam;
