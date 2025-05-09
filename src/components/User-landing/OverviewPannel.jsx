@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { UserAuth } from "../../context/AuthContext";
-import { format } from "date-fns";
 
 const OverviewPanel = () => {
   const [totalRegistered, setTotalRegistered] = useState(0);
@@ -14,26 +13,32 @@ const OverviewPanel = () => {
 
     const fetchOverviewData = async () => {
       try {
-        const q = query(collection(db, "registrations"), where("userId", "==", user.uid));
-        const querySnapshot = await getDocs(q);
-        const registrations = querySnapshot.docs.map((doc) => doc.data());
+        // Get user's registrations
+        const registrationsQuery = query(
+          collection(db, "registrations"), 
+          where("userId", "==", user.uid)
+        );
+        const registrationsSnap = await getDocs(registrationsQuery);
+        setTotalRegistered(registrationsSnap.size);
 
-        setTotalRegistered(registrations.length);
-
-        // Fetch event details to check upcoming events
-        const now = new Date();
+        // Check upcoming events
         let upcomingCount = 0;
+        const now = new Date();
 
-        for (const reg of registrations) {
-          const eventQuery = query(collection(db, "events"), where("eventId", "==", reg.eventId));
-          const eventSnapshot = await getDocs(eventQuery);
-          eventSnapshot.forEach((eventDoc) => {
+        for (const regDoc of registrationsSnap.docs) {
+          const regData = regDoc.data();
+          if (!regData.eventId) continue;
+
+          // Get the event document directly
+          const eventDoc = await getDoc(doc(db, "events", regData.eventId));
+          if (eventDoc.exists()) {
             const eventData = eventDoc.data();
-            const eventDate = new Date(eventData.date);
-            if (eventDate > now) {
+            const eventDateTime = new Date(`${eventData.startDate} ${eventData.startTime}`);
+            
+            if (eventDateTime > now) {
               upcomingCount++;
             }
-          });
+          }
         }
 
         setUpcomingEvents(upcomingCount);

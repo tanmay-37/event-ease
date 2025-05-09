@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
   const [events, setEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const { user } = UserAuth();
@@ -23,13 +24,51 @@ const UserDashboard = () => {
 
     const fetchUserEvents = async () => {
       try {
-        const q = query(collection(db, "eventRegistrations"), where("userId", "==", user.uid));
-        const querySnapshot = await getDocs(q);
-        const eventsArray = querySnapshot.docs.map((doc) => ({
+        // Fetch user registrations
+        const registrationsQuery = query(
+          collection(db, "registrations"), 
+          where("userId", "==", user.uid)
+        );
+        const registrationsSnap = await getDocs(registrationsQuery);
+
+        // Get all registered event IDs
+        const eventIds = registrationsSnap.docs.map(doc => doc.data().eventId);
+
+        if (eventIds.length > 0) {
+          // Fetch event details for each registration
+          const currentDate = new Date();
+          const upcomingEventsList = [];
+          
+          for (const eventId of eventIds) {
+            const eventDoc = await getDocs(doc(db, "events", eventId));
+            if (eventDoc.exists()) {
+              const eventData = eventDoc.data();
+              const eventDate = new Date(`${eventData.startDate} ${eventData.startTime}`);
+              
+              // Check if event is upcoming
+              if (eventDate > currentDate) {
+                upcomingEventsList.push({
+                  id: eventDoc.id,
+                  ...eventData
+                });
+              }
+            }
+          }
+
+          // Sort upcoming events by date
+          const sortedUpcomingEvents = upcomingEventsList.sort((a, b) => {
+            const dateA = new Date(`${a.startDate} ${a.startTime}`);
+            const dateB = new Date(`${b.startDate} ${b.startTime}`);
+            return dateA - dateB;
+          });
+
+          setUpcomingEvents(sortedUpcomingEvents);
+        }
+
+        setEvents(registrationsSnap.docs.map(doc => ({
           id: doc.id,
-          ...doc.data(),
-        }));
-        setEvents(eventsArray);
+          ...doc.data()
+        })));
       } catch (error) {
         setErrorMessage("Failed to fetch events. Please try again.");
         console.error("Error fetching user events:", error);
@@ -41,8 +80,8 @@ const UserDashboard = () => {
     fetchUserEvents();
   }, [user]);
 
-   return (
-    <div className="min-h-screen flex flex-col p-4 lg:p-6 bg-[#F5F3FF]"
+  return (
+    <div className="min-h-screen flex flex-col p-4 lg:p-6"
       style={{
         backgroundImage: "url('/images/doodad.png')",
         backgroundSize: "500px",
@@ -51,7 +90,7 @@ const UserDashboard = () => {
       
       {/* Main content */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow">
-        <OverviewPanel />
+        <OverviewPanel upcomingEvents={upcomingEvents} />
         <MyRegisteredEvents />
       </div>
 

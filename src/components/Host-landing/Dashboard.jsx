@@ -56,7 +56,7 @@ const HostDashboard = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="min-h-screen flex flex-col p-4 lg:p-6 bg-[#F5F3FF]"
+    <div className="min-h-screen flex flex-col p-4 lg:p-6"
       style={{
         backgroundImage: "url('/images/doodad.png')",
         backgroundSize: "500px",

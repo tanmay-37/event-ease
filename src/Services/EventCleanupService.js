@@ -41,40 +41,55 @@ export const cleanupExpiredEvents = async () => {
         console.log("Event expired, moving to recent events:", eventData.title);
         
         try {
-          // Store in recentEvents first
-          await addDoc(collection(db, "recentEvents"), {
-            ...eventData,
-            originalEventId: eventDoc.id,
-            archivedAt: Timestamp.now()
-          });
-
-          // Get and process registrations
+          // Get registrations count first
           const registrationsRef = collection(db, "registrations");
           const registrationsQuery = query(
             registrationsRef, 
             where("eventId", "==", eventDoc.id)
           );
           const registrationsSnapshot = await getDocs(registrationsQuery);
+          const registrationCount = registrationsSnapshot.size;
+
+          // Store main event in recentEvents with registration count
+          await addDoc(collection(db, "recentEvents"), {
+            ...eventData,
+            originalEventId: eventDoc.id,
+            registrationCount: registrationCount,
+            isMainEvent: true, // Flag to identify the main event record
+            archivedAt: Timestamp.now()
+          });
 
           console.log(`Processing ${registrationsSnapshot.docs.length} registrations`);
 
-          // Update registrations
-          for (const regDoc of registrationsSnapshot.docs) {
+          // Store individual registration records
+          const registrationPromises = registrationsSnapshot.docs.map(regDoc => {
             const regData = regDoc.data();
-            await addDoc(collection(db, "recentEvents"), {
+            return addDoc(collection(db, "recentEvents"), {
               ...eventData,
               userId: regData.userId,
               registrationId: regDoc.id,
               originalEventId: eventDoc.id,
+              registrationCount: registrationCount,
+              isRegistration: true, // Flag to identify registration records
               archivedAt: Timestamp.now()
             });
+          });
+
+          // Wait for all registration records to be stored
+          await Promise.all(registrationPromises);
+
+          // Delete original event and its registrations
+          await deleteDoc(doc(db, "events", eventDoc.id));
+          
+          // Delete all registrations for this event
+          for (const regDoc of registrationsSnapshot.docs) {
+            await deleteDoc(doc(db, "registrations", regDoc.id));
           }
 
-          // Finally remove the original event
-          await deleteDoc(doc(db, "events", eventDoc.id));
-          console.log("Successfully moved event to recent events");
+          console.log("Successfully moved event and registrations to recent events");
         } catch (error) {
           console.error("Error processing event:", error);
+          throw error; // Rethrow to handle in outer catch block
         }
       } else {
         console.log("Event not expired yet");
